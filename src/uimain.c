@@ -4,17 +4,20 @@
 
 int main()
 {
-  char input[500];
-
+  char input[100];
   
   printf("%c\n",*(word_start("hello world")));
   char *p = word_terminator("hello world");
-  printf("%c\n", *(word_start(p)));
-  printf("%d",count_words("  hello world"));
+  printf("%c",*(word_start(p)));
+
+  char *str = "hello world";
+  printf("%s",str);
+  int x = count_words(str);
+  printf("%d",x);
   
   while (1){
     printf("$");
-    scanf("%s", input, 500);
+    fgets(input, 100, stdin);
     printf("%s\n",input);
   }
 }

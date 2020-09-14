@@ -45,7 +45,19 @@ char *word_terminator(char *word)
 
 int count_words(char *str)
 {
+  printf("%s",str);
   int wordCount = 0;
+  char *p = word_start(str);
+    while (*p != '\0')
+    {
+      printf("%s",p);
+      if (non_space_char(*p))
+      {
+	wordCount += 1;
+      }
+      p = word_terminator(p);
+      p = word_start(p);
+    }
   return wordCount;
 }
 
