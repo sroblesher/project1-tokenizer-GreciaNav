@@ -22,35 +22,35 @@ int non_space_char(char c)
 
 char *word_start(char *str)
 {
-  for (int i = 0; *(str+i) != '\0'; i++){
+  int i;
+  for (i = 0; *(str+i) != '\0'; i++){
     if (non_space_char(*(str+i))) //Checks that char is not space
     {
       return str+i;
     }
   }
-  return 0;
+  return str+i;
 }
 
 
 char *word_terminator(char *word)
 {
-  for (int i = 0; *(word+i) != '\0'; i++){
+  int i;
+  for (i = 0; *(word+i) != '\0'; i++){
     if (space_char(*(word+i))) //Checks that char is space
     {
       return word+i;
     }
   }
-  return 0;
+  return word+i;
 }
 
 int count_words(char *str)
 {
-  printf("%s",str);
   int wordCount = 0;
   char *p = word_start(str);
     while (*p != '\0')
     {
-      printf("%s",p);
       if (non_space_char(*p))
       {
 	wordCount += 1;

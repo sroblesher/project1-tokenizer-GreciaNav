@@ -8,12 +8,9 @@ int main()
   
   printf("%c\n",*(word_start("hello world")));
   char *p = word_terminator("hello world");
-  printf("%c",*(word_start(p)));
-
-  char *str = "hello world";
-  printf("%s",str);
-  int x = count_words(str);
-  printf("%d",x);
+  printf("%c\n",*(word_start(p)));
+  int x = count_words("  hello world");
+  printf("%d\n",x);
   
   while (1){
     printf("$");
