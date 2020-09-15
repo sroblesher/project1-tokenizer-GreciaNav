@@ -32,7 +32,6 @@ char *word_start(char *str)
   return str+i;
 }
 
-
 char *word_terminator(char *word)
 {
   int i;
@@ -53,34 +52,87 @@ int count_words(char *str)
     {
       if (non_space_char(*p))
       {
-	wordCount += 1;
+	wordCount += 1; //Adds 1 to count if it goes to a word
       }
-      p = word_terminator(p);
-      p = word_start(p);
+      p = word_terminator(p); //Goes to end of word
+      p = word_start(p); //Goes to beggining of next word
     }
   return wordCount;
 }
 
-/*
 char *copy_str(char *inStr, short len)
 {
-  return 0;
+  char *scopy = malloc((len+1) * sizeof(char));
+  int i;
+  for(i = 0; i < len; i++)
+  {
+    *(scopy+i) = *(inStr+i); //Copying contents of inStr into scopy
+  }
+  *(scopy+i) = '\0'; //Making last value in scopy '\0'
+  return scopy;
 }
-
 
 char **tokenize(char* str)
 {
-  return 0;
+  int numWords = count_words(str);
+  char **tokens = malloc((numWords+1) * sizeof(char *));
+  char *p = str;
+  int i;
+  for(i = 0; i < numWords; i++)
+  {
+    p = word_start(p); //Go to next word
+    int length = word_length(p);
+    tokens[i] = malloc((length+1) * sizeof(char)); //Allocating memory for current word
+    tokens[i] = copy_str(p, length); //Using copy_str to only copy up to the end of the current word
+    p = word_terminator(p); //Go to end of the word
+  }
+  tokens[i] = '\0'; //Make last element in tokens '\0'
+  return tokens;
 }
-
 
 void print_tokens(char **tokens)
 {
-
+  for(int i = 0; *(tokens[i]) != '\0'; i++)
+  {
+    printf("%s\n",tokens[i]); //Prints current word in tokens
+  }
 }
 
 void free_tokens(char **tokens)
 {
-
+  int i = 0;
+  for(i = 0; *(tokens[i]) != '\0'; i++)
+  {
+    free(tokens[i]); //Free each word in tokens
+  }
+  free(tokens[i]); //Freeing index of tokens holding '\0'
+  free(tokens); //Freeing tokens
 }
-*/
+
+int string_length(char *str)
+{
+  int length = 0;
+  for(int i = 0; *(str+i) != '\0'; i++)
+  {
+    length += 1; //Adds one for every character that is not the terminator symbol
+  }
+  return length;
+}
+
+
+int word_length(char *str)
+{
+  int length = 0;
+  for (int i = 0; (*(str+i) != '\0'); i++) //Go through string before seeing terminator symbol
+  {
+    if (non_space_char(*(str+i)) )
+    {
+      length += 1; //Add one to length since cur char is not a space char
+    }
+    else
+    {
+      break; //Found a space, finished counting current word
+    }
+  }
+  return length;
+}
