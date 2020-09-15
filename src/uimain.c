@@ -18,6 +18,7 @@ int main()
   printf("%s\n",token[0]);
   printf("%s\n",token[1]);
   printf("%s\n",token[2]);
+  printf("%s\n",token[3]);
   print_tokens(token);
   free_tokens(token);
   

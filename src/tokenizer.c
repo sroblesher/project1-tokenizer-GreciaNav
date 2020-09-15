@@ -86,7 +86,8 @@ char **tokenize(char* str)
     tokens[i] = copy_str(p, length); //Using copy_str to only copy up to the end of the current word
     p = word_terminator(p); //Go to end of the word
   }
-  tokens[i] = '\0'; //Make last element in tokens '\0'
+  tokens[i] = malloc(sizeof(char));
+  *(tokens[i]) = '\0'; //Make last element in tokens '\0'
   return tokens;
 }
 
