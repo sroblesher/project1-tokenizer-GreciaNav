@@ -6,7 +6,7 @@
 int main()
 {
   char input[100];
-  
+  /*
   printf("%c\n",*(word_start("hello world")));
   char *p = word_terminator("hello world");
   printf("%c\n",*(word_start(p)));
@@ -32,10 +32,26 @@ int main()
   printf("%s\n",get_history(l,4));
   free_history(l);
   print_history(l);
+  */
+  List *history = init_history();
   while (1)
   {
+    printf("Input '#' to quit\n Input a sentence\n Or input ! followed by a sequence number to recall a rectain history.\n"); 
     printf("$");
     fgets(input, 100, stdin);
-    printf("%s\n",input);
+    if (input[0] == '#'){
+      printf("Bye, thank you!\n");
+      return 0;
+    }
+    if (input[0] == '!'){
+      printf("%s",get_history(history,atoi(input+1)));
+    }
+    else{
+      printf("%s\n",input);
+      char **tokens = tokenize(input);
+      print_tokens(tokens);
+      free_tokens(tokens);
+      add_history(history, input);
+    }
   }
 }
