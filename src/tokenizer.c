@@ -106,13 +106,12 @@ void free_tokens(char **tokens)
   {
     free(tokens[i]); //Free each word in tokens
   }
-  free(tokens[i]); //Freeing index of tokens holding '\0'
   free(tokens); //Freeing tokens
 }
 
-int string_length(char *str)
+short string_length(char *str)
 {
-  int length = 0;
+  short length = 0;
   for(int i = 0; *(str+i) != '\0'; i++)
   {
     length += 1; //Adds one for every character that is not the terminator symbol

@@ -8,4 +8,4 @@ tokenizer.o: tokenizer.h tokenizer.c
 
 uimain.o: uimain.c tokenizer.h history.h
 
-history.o: history.h history.c
+history.o: history.h history.c tokenizer.h

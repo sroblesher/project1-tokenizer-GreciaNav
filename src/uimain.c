@@ -28,7 +28,10 @@ int main()
   add_history(l, "jojo");
   add_history(l, "oye si");
   print_history(l);
-  printf("%s\n",get_history(l,2));
+  printf("%s\n",get_history(l,3));
+  printf("%s\n",get_history(l,4));
+  free_history(l);
+  print_history(l);
   while (1)
   {
     printf("$");

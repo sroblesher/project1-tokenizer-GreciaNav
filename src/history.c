@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "history.h"
+#include "tokenizer.h"
 
 List* init_history()
 {
@@ -10,10 +11,6 @@ List* init_history()
   return list;
 }
 
-/* Add a history item to the end of the list.
-   List* list - the linked list
-   char* str - the string to store
-*/
 void add_history(List *list, char *str)
 {
   Item *temp = list->root;
@@ -25,14 +22,11 @@ void add_history(List *list, char *str)
   }
   //Allocating memory for and adding item with given string
   temp->next = malloc(sizeof(Item)); 
-  temp->next->str = str;
+  temp->next->str = copy_str(str, string_length(str));
   temp->next->id = id;
   
 }
 
-/* Retrieve the string stored in the node where Item->id == id.
-   List* list - the linked list
-   int id - the id of the Item to find */
 char *get_history(List *list, int id)
 {
   Item *temp = list->root;
@@ -45,10 +39,9 @@ char *get_history(List *list, int id)
     }
     temp = temp->next;
   }
-  return '\0'; //id not found in List
+  return "id not found"; //id not found in List
 }
 
-/*Print the entire contents of the list. */
 void print_history(List *list)
 {
   Item *temp = list->root;
@@ -59,15 +52,17 @@ void print_history(List *list)
   }
 }
 
-/*Free the history list and the strings it references. */
 void free_history(List *list)
 {
-  Item *temp = list->root;
-  /*while(temp != '\0')
+  Item *cur = list->root;
+  while(cur->next != 0)
   {
-  
-  }*/
-  free(list);
+    Item *prev = cur; //Node to be freed
+    cur = cur->next; //Keeping reference to next node
+    free(prev->str); //Freeing str in node to be freed
+    free(prev); //Freeing node to be freed
+  }
+  free(cur->str); //Free str in last node
+  free(cur); //Free last node
+  free(list); //Free list
 }
-
-

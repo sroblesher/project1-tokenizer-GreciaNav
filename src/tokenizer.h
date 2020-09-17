@@ -45,7 +45,7 @@ void print_tokens(char **tokens);
 void free_tokens(char **tokens);
 
 /*Returns the length of the given string*/
-int string_length(char *str);
+short string_length(char *str);
 
 /* Returns the length of the word before finding space or terminator symbol*/
 int word_length(char *str);
