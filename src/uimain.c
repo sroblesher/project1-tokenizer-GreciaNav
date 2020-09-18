@@ -3,55 +3,53 @@
 #include "tokenizer.h"
 #include "history.h"
 
+char *token_to_string(char **tokens);
+
 int main()
 {
   char input[100];
-  /*
-  printf("%c\n",*(word_start("hello world")));
-  char *p = word_terminator("hello world");
-  printf("%c\n",*(word_start(p)));
-  int x = count_words("  hello world");
-  printf("%d\n",x);
-  char *stringy = "oye si";
-  char *string = copy_str(stringy, string_length(stringy));
-  printf("%s\n",string);
-  char **token = tokenize("hello world string");
-  printf("%s\n",token[0]);
-  printf("%s\n",token[1]);
-  printf("%s\n",token[2]);
-  printf("%s\n",token[3]);
-  print_tokens(token);
-  free_tokens(token);
-
-  List *l = init_history();
-  add_history(l, "Sonikkuu");
-  add_history(l, "jojo");
-  add_history(l, "oye si");
-  print_history(l);
-  printf("%s\n",get_history(l,3));
-  printf("%s\n",get_history(l,4));
-  free_history(l);
-  print_history(l);
-  */
   List *history = init_history();
-  while (1)
-  {
-    printf("Input '#' to quit\n Input a sentence\n Or input ! followed by a sequence number to recall a rectain history.\n"); 
+
+  while (1) {
+    printf("\nPlease do one of the following:\n");
+    printf("1.Input '#' to quit\n 2.Input a sentence\n 3.Input ! followed by a sequence number to recall a certain history.\n"); 
     printf("$");
     fgets(input, 100, stdin);
-    if (input[0] == '#'){
+    
+    if (input[0] == '#') { // Option to quit program
       printf("Bye, thank you!\n");
+      free_history(history);
       return 0;
     }
-    if (input[0] == '!'){
-      printf("%s",get_history(history,atoi(input+1)));
+    if (input[0] == '!') { // Option to recall a certain history
+      printf("%s\n",get_history(history,atoi(input+1)));
     }
-    else{
-      printf("%s\n",input);
+    else { // Option to input sentence to history
       char **tokens = tokenize(input);
       print_tokens(tokens);
+
+      //Make tokenized word to string
+      char *token_str = malloc(100*sizeof(char));
+      char *curr = token_str;
+      int w = 0;
+      int l = 0;
+      for (int i = 0; i < 100; i++) {
+	curr[i] = tokens[w][l];
+	l++;
+	if (tokens[w][l] == '\0') {
+	  l = 0;
+	  w++;
+	  curr[++i] = ' ';
+	}
+	if(tokens[w] == 0) {
+	  curr[++i] = '\0';
+	  break;
+	}
+      }
+      
       free_tokens(tokens);
-      add_history(history, input);
+      add_history(history, token_str);
+      free(token_str);
     }
   }
 }
