@@ -12,11 +12,11 @@ int main()
 
   while (1) {
     printf("\nPlease do one of the following:\n");
-    printf("1.Input '#' to quit\n 2.Input a sentence\n 3.Input '!' followed by a sequence number to recall a certain history.\n4. Input '&' to view all history\n"); 
+    printf("1.Input 'q' to quit\n 2.Input 'i' to input a sentence\n 3.Input '!' followed by a sequence number to recall a certain history.\n4. Input 'h' to view all histories\n"); 
     printf("$");
     fgets(input, 100, stdin);
     
-    if (input[0] == '#') { // Option to quit program
+    if (input[0] == 'q') { // Option to quit program
       printf("Bye, thank you!\n");
       free_history(history);
       return 0;
@@ -24,14 +24,19 @@ int main()
     else if (input[0] == '!') { // Option to recall a certain history
       printf("%s\n",get_history(history,atoi(input+1)));
     }
-    else if (input[0] == '&') { //Option to view history
+    else if (input[0] == 'h') { //Option to view history
       print_history(history);
     }
-    else { // Option to input sentence to history
+    else if (input[0] == 'i') { // Option to input sentence to history
+      printf("Please input your sentence:\n$");
+      fgets(input, 100, stdin);
       char **tokens = tokenize(input);
       print_tokens(tokens);
-      token_to_history(history, tokens); //Turns tokenized word to string, adds to history
+      token_to_history(history, tokens); // Turns tokenized word to string, adds to history
       free_tokens(tokens);
+    }
+    else { // Invalid option
+      printf("Invalid option, try again!\n");
     }
   }
 }
