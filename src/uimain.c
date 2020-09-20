@@ -3,7 +3,7 @@
 #include "tokenizer.h"
 #include "history.h"
 
-char *token_to_string(char **tokens);
+void token_to_history(List *history, char **tokens);
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
 
   while (1) {
     printf("\nPlease do one of the following:\n");
-    printf("1.Input '#' to quit\n 2.Input a sentence\n 3.Input ! followed by a sequence number to recall a certain history.\n"); 
+    printf("1.Input '#' to quit\n 2.Input a sentence\n 3.Input '!' followed by a sequence number to recall a certain history.\n4. Input '&' to view all history\n"); 
     printf("$");
     fgets(input, 100, stdin);
     
@@ -21,35 +21,41 @@ int main()
       free_history(history);
       return 0;
     }
-    if (input[0] == '!') { // Option to recall a certain history
+    else if (input[0] == '!') { // Option to recall a certain history
       printf("%s\n",get_history(history,atoi(input+1)));
+    }
+    else if (input[0] == '&') { //Option to view history
+      print_history(history);
     }
     else { // Option to input sentence to history
       char **tokens = tokenize(input);
       print_tokens(tokens);
+      token_to_history(history, tokens); //Turns tokenized word to string, adds to history
+      free_tokens(tokens);
+    }
+  }
+}
 
-      //Make tokenized word to string
+void token_to_history(List *history, char **tokens)
+{
       char *token_str = malloc(100*sizeof(char));
       char *curr = token_str;
       int w = 0;
       int l = 0;
       for (int i = 0; i < 100; i++) {
-	curr[i] = tokens[w][l];
+	curr[i] = tokens[w][l]; // copying contents in tokens
 	l++;
-	if (tokens[w][l] == '\0') {
-	  l = 0;
+	if (tokens[w][l] == '\0') { // Reached end of word 
+	  l = 0; // Reset letter to 0
 	  w++;
-	  curr[++i] = ' ';
+	  curr[++i] = ' '; // Adding single space after word
 	}
-	if(tokens[w] == 0) {
+	if(tokens[w] == 0) { // Reached end of words
 	  curr[++i] = '\0';
 	  break;
 	}
       }
-      
-      free_tokens(tokens);
-      add_history(history, token_str);
-      free(token_str);
-    }
-  }
-}
+      add_history(history, token_str); // Adding tokenized input to history
+      free(token_str); 
+}     
+
