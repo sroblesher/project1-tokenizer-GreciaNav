@@ -83,14 +83,15 @@ char **tokenize(char* str)
 
 void print_tokens(char **tokens)
 {
-  for (int i = 0; tokens[i] != 0; i++) {
+  int i;
+  for (i = 0; tokens[i] != 0; i++) {
     printf("%s ",tokens[i]); // Prints current word in tokens
   }
 }
 
 void free_tokens(char **tokens)
 {
-  int i = 0;
+  int i;
   for (i = 0; tokens[i] != 0; i++) {
     free(tokens[i]); // Free each word in tokens
   }
@@ -100,7 +101,8 @@ void free_tokens(char **tokens)
 short string_length(char *str)
 {
   short length = 0;
-  for (int i = 0; *(str+i) != '\0'; i++) {
+  int i;
+  for (i = 0; *(str+i) != '\0'; i++) {
     length += 1; // Adds one for every character that is not the terminator symbol
   }
   return length;
@@ -110,7 +112,8 @@ short string_length(char *str)
 int word_length(char *str)
 {
   int length = 0;
-  for (int i = 0; (*(str+i) != '\0'); i++) { // Go through string before seeing terminator symbol
+  int i = 0;
+  for (i = 0; *(str+i) != '\0'; i++) { // Go through string before seeing terminator symbol
     if (non_space_char(*(str+i))) {
       length += 1; // Add one to length since cur char is not a space char
     }
