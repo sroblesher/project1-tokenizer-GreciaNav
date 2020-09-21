@@ -20,21 +20,22 @@ from, these include:
   1. Inside the src, type 'make'. An executable named "tokenizer" will be
   generated.
   2. Type './tokenizer' to run the program.
+  3. If desired, type 'make clean' to remove all compiled and .o files.
 
 # Input Commands:
 
 In this program, the user is given 4 actions which they can choose to perform,
 below are these actions:
 
- - **'q'** Quit: The user should input **'q'** to quit, this will cause history
+ - **'q'**: The user should input **'q'** to quit, this will cause history
   memory to be freed, print a goodbye message, and terminate the program.
 
- - **'i'** Input a sentence to be added to the history: The user should input **'i'** to
+ - **'i'**: The user should input **'i'** to
   input a sentence, they will then be asked to input the sentence and it will
   be printed back to them.Input will then be added to the history.
 
- - **'!'** Recalling a certain history: The user should input **'!'** followed by a
+ - **'!'**: The user should input **'!'** followed by a
    sequence id number to recall a certain history. The program will then
    print the history with matching id. History ids start from 1.
 
- - **'h'** Printing all histories: The user should input **'h'** to view all histories. The program will then print all histories up to that point.
+ - **'h'**: The user should input **'h'** to view all histories. The program will then print all histories up to that point.

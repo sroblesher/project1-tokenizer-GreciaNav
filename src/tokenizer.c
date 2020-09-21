@@ -112,7 +112,7 @@ short string_length(char *str)
 int word_length(char *str)
 {
   int length = 0;
-  int i = 0;
+  int i;
   for (i = 0; *(str+i) != '\0'; i++) { // Go through string before seeing terminator symbol
     if (non_space_char(*(str+i))) {
       length += 1; // Add one to length since cur char is not a space char
