@@ -85,7 +85,7 @@ void print_tokens(char **tokens)
 {
   int i;
   for (i = 0; tokens[i] != 0; i++) {
-    printf("%s ",tokens[i]); // Prints current word in tokens
+    printf("%s\n",tokens[i]); // Prints current word in tokens
   }
 }
 

@@ -22,7 +22,12 @@ int main()
       return 0;
     }
     else if (input[0] == '!') { // Option to recall a certain history
-      printf("%s\n",get_history(history,atoi(input+1)));
+      char *hist = get_history(history,atoi(input+1));
+      char **tokens = tokenize(hist);
+      printf("Retrieved history: %s\n", hist);
+      printf("Retrieved history tokenized:\n");
+      print_tokens(tokens);
+      free_tokens(tokens);
     }
     else if (input[0] == 'h') { //Option to view history
       print_history(history);
@@ -32,7 +37,7 @@ int main()
       fgets(input, 100, stdin);
       char **tokens = tokenize(input);
       print_tokens(tokens);
-      token_to_history(history, tokens); // Turns tokenized word to string, adds to history
+      add_history(history, input);
       free_tokens(tokens);
     }
     else { // Invalid option
@@ -40,27 +45,3 @@ int main()
     }
   }
 }
-
-void token_to_history(List *history, char **tokens)
-{
-      char *token_str = malloc(100*sizeof(char));
-      char *curr = token_str;
-      int w = 0;
-      int l = 0;
-      for (int i = 0; i < 100; i++) {
-	curr[i] = tokens[w][l]; // copying contents in tokens
-	l++;
-	if (tokens[w][l] == '\0') { // Reached end of word 
-	  l = 0; // Reset letter to 0
-	  w++;
-	  curr[++i] = ' '; // Adding single space after word
-	}
-	if(tokens[w] == 0) { // Reached end of words
-	  curr[++i] = '\0';
-	  break;
-	}
-      }
-      add_history(history, token_str); // Adding tokenized input to history
-      free(token_str); 
-}     
-
